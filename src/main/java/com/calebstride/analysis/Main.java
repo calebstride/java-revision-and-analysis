@@ -19,21 +19,25 @@ public class Main {
         final ScenarioConfig scenarioConfig = new ScenarioConfig(5000, 1000);
 
         // Create filler object for integers
-        IntegerCollectionFiller integerCollectionFiller = new IntegerCollectionFiller();
+        IntegerCollectionFiller integerFiller = new IntegerCollectionFiller();
 
-        CollectionScenarioResult integerArrayResult = CollectionTestScenarios.runScenarios(ArrayList::new, scenarioConfig, integerCollectionFiller);
-        CollectionScenarioResult integerSetResult = CollectionTestScenarios.runScenarios(HashSet::new, scenarioConfig, integerCollectionFiller);
-
-        CollectionTestScenarios.runScenarios(TreeSet::new, scenarioConfig, integerCollectionFiller);
-        CollectionTestScenarios.runScenarios(LinkedList::new, scenarioConfig, integerCollectionFiller);
-        CollectionTestScenarios.runScenarios(ArrayDeque::new, scenarioConfig, integerCollectionFiller);
-
+        // Compare the timing of two different scenarios
+        CollectionScenarioResult integerArrayResult = CollectionTestScenarios.runScenarios(ArrayList::new, scenarioConfig, integerFiller);
+        CollectionScenarioResult integerSetResult = CollectionTestScenarios.runScenarios(HashSet::new, scenarioConfig, integerFiller);
         LOGGER.info("The results for the collection (size: {}) scenarios (n: {}): ",
                 scenarioConfig.collectionSize(), scenarioConfig.scenarioFreq());
-        LOGGER.info(integerArrayResult.summary("Integer"));
-        LOGGER.info(integerSetResult.summary("Integer"));
-        LOGGER.info(integerArrayResult.compare(integerSetResult, "Integer"));
+        String comparison = integerArrayResult.compare(integerSetResult, "Integer");
+        LOGGER.info(comparison);
 
-        LOGGER.info(new CollectionScenarioResultGroup().withResult(integerArrayResult).withResult(integerSetResult).resultTable("Integer Collections", scenarioConfig));
+        // Create a table showing the timing of a few different collections
+        String resultTable = new CollectionScenarioResultGroup()
+                .withResult(integerArrayResult)
+                .withResult(integerSetResult)
+                .withResult(CollectionTestScenarios.runScenarios(TreeSet::new, scenarioConfig, integerFiller))
+                .withResult(CollectionTestScenarios.runScenarios(LinkedList::new, scenarioConfig, integerFiller))
+                .withResult(CollectionTestScenarios.runScenarios(ArrayDeque::new, scenarioConfig, integerFiller))
+                .resultTable("Integer Collections", scenarioConfig);
+
+        LOGGER.info(resultTable);
     }
 }

@@ -3,20 +3,23 @@ package com.calebstride.analysis.scenarios.results;
 import com.calebstride.analysis.scenarios.ScenarioConfig;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+/**
+ * Used to group together timing results to print them to a table
+ */
 public class CollectionScenarioResultGroup {
 
-    private List<CollectionScenarioResult> results = new ArrayList<>();
+    private final List<CollectionScenarioResult> results = new ArrayList<>();
 
+    /**
+     * Add a result to the group
+     * @param collectionScenarioResult The single result to add
+     * @return This object
+     */
     public CollectionScenarioResultGroup withResult(CollectionScenarioResult collectionScenarioResult) {
         results.add(collectionScenarioResult);
         return this;
-    }
-
-    public void addResult(CollectionScenarioResult collectionScenarioResult) {
-        results.add(collectionScenarioResult);
     }
 
     /**
@@ -33,7 +36,7 @@ public class CollectionScenarioResultGroup {
 
         """);
 
-        resultTable.append(createRow("", "add (ns)", "remove (ns)", "contains (ns)", "size (ns)", "bytes"));
+        resultTable.append(createRow("", "add (ns)", "remove (ns)", "contains (ns)", "size (ns)", "bytes (KB)"));
         for (CollectionScenarioResult result : results) {
             resultTable.append(createRow(result));
         }
@@ -49,6 +52,6 @@ public class CollectionScenarioResultGroup {
                 collectionScenarioResult.timeToAdd().getAverageTime(),
                 collectionScenarioResult.timeToRemove().getAverageTime(),
                 collectionScenarioResult.timeToContains().getAverageTime(),
-                collectionScenarioResult.timeToSize().getAverageTime(), collectionScenarioResult.sizeInBytes());
+                collectionScenarioResult.timeToSize().getAverageTime(), collectionScenarioResult.sizeInBytes() / 1000);
     }
 }
