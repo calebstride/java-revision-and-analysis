@@ -1,13 +1,14 @@
 package com.calebstride.analysis;
 
 import com.calebstride.analysis.collection.content.IntegerCollectionFiller;
-import org.apache.commons.lang3.time.StopWatch;
-import org.openjdk.jol.info.ClassLayout;
-import org.openjdk.jol.info.GraphLayout;
+import com.calebstride.analysis.scenarios.CollectionScenarioResult;
+import com.calebstride.analysis.scenarios.CollectionTestScenarios;
+import com.calebstride.analysis.scenarios.ScenarioConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
 
@@ -15,16 +16,18 @@ public class Main {
 
     public static void main(String[] args) {
 
+        final ScenarioConfig scenarioConfig = new ScenarioConfig(500000, 1000);
 
-
-        // Create collection of x objects
+        // Create filler object for integers
         IntegerCollectionFiller integerCollectionFiller = new IntegerCollectionFiller();
 
-        ArrayList<Integer> integerArray = integerCollectionFiller.fillCollection(new ArrayList<>(), 50);
+        CollectionScenarioResult integerArrayResult = CollectionTestScenarios.runScenarios(ArrayList::new, scenarioConfig, integerCollectionFiller);
+        CollectionScenarioResult integerSetResult = CollectionTestScenarios.runScenarios(HashSet::new, scenarioConfig, integerCollectionFiller);
 
-        LOGGER.info("Size of the array: {} bytes", GraphLayout.parseInstance(integerArray).totalSize());
-
-
-
+        LOGGER.info("The results for the collection (size: {}) scenarios (n: {}): ",
+                scenarioConfig.collectionSize(), scenarioConfig.scenarioFreq());
+        LOGGER.info(integerArrayResult.summary("Integer"));
+        LOGGER.info(integerSetResult.summary("Integer"));
+        LOGGER.info(integerArrayResult.compare(integerSetResult, "Integer"));
     }
 }
