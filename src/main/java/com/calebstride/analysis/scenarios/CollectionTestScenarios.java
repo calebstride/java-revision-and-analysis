@@ -2,6 +2,8 @@ package com.calebstride.analysis.scenarios;
 
 import com.calebstride.analysis.collection.content.CollectionFiller;
 import com.calebstride.analysis.collection.content.CollectionGroup;
+import com.calebstride.analysis.scenarios.results.CollectionScenarioResult;
+import com.calebstride.analysis.scenarios.results.TimeResult;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openjdk.jol.info.GraphLayout;
 import org.slf4j.Logger;
@@ -76,6 +78,8 @@ public class CollectionTestScenarios {
         Collection<T> scenarioCollection = collectionGroup.scenarioCollection();
         for (T value : scenarioCollection) {
             stopWatch.start();
+            // This probably isn't the best way to run different methods and might add some overhead. But it should be
+            // a constant overhead so comparisons shouldn't be effected.
             scenarioAction.accept(collectionGroup.collection(), value);
             stopWatch.stop();
             addTimeResult.updateTime(stopWatch.getTime(TimeUnit.NANOSECONDS));

@@ -1,4 +1,4 @@
-package com.calebstride.analysis.scenarios;
+package com.calebstride.analysis.scenarios.results;
 
 /**
  * Describes and holds summary of a collection of timings. Allows you to retrieve minimum maximum etc.
@@ -43,7 +43,7 @@ public class TimeResult {
      * @return A string showing the summary of a TimingResult
      */
     public String getSummary() {
-        return STR."av. \{getAverageTime()}  min. \{minTime}  max. \{maxTime}";
+        return STR."av. \{getAverageTime()}ns  min. \{minTime}ns  max. \{maxTime}ns";
     }
 
     public long getAverageTime() {

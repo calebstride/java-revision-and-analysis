@@ -1,4 +1,4 @@
-package com.calebstride.analysis.scenarios;
+package com.calebstride.analysis.scenarios.results;
 
 /**
  * Record to hold all the scenarios tested for a collection timing. As well as the size of the collection.
@@ -20,7 +20,7 @@ public record CollectionScenarioResult(TimeResult timeToAdd, TimeResult timeToRe
     public String summary(String contentType) {
         return STR."""
         The summary for the \{collectionName} of type \{contentType}:
-        \{collectionName} Size in bytes - \{sizeInBytes}
+        \{collectionName} Size - \{sizeInBytes} bytes
         Add time     : \{timeToAdd.getSummary()}
         Remove time  : \{timeToRemove.getSummary()}
         Contains time: \{timeToContains.getSummary()}
@@ -28,10 +28,16 @@ public record CollectionScenarioResult(TimeResult timeToAdd, TimeResult timeToRe
         """;
     }
 
+    /**
+     * Create some text for a comparison between times. This is not very pretty.
+     * @param scenarioResult The result to compare to
+     * @param contentType The type that both collections contain
+     * @return The block of text with a comparison of the times
+     */
     public String compare(CollectionScenarioResult scenarioResult, String contentType) {
         return STR."""
         The comparison of the \{collectionName} against \{scenarioResult.collectionName} of type \{contentType}:
-        \{collectionName} Size in bytes - \{sizeInBytes} against \{scenarioResult.collectionName}s \{scenarioResult.sizeInBytes}
+        \{collectionName} Size - \{sizeInBytes} bytes against \{scenarioResult.collectionName}s \{scenarioResult.sizeInBytes} bytes
         Add: \{compareTimes(timeToAdd.getAverageTime(), scenarioResult.timeToAdd.getAverageTime(), collectionName,
                 scenarioResult.collectionName)}
         Remove: \{compareTimes(timeToRemove.getAverageTime(), scenarioResult.timeToRemove.getAverageTime(),
@@ -58,6 +64,6 @@ public record CollectionScenarioResult(TimeResult timeToAdd, TimeResult timeToRe
         }
         int times = (int) (1.0 / factor);
         String percent = String.format("%.02f", factor * 100.0);
-        return STR."\{firstName} was \{description} with an average time: \{firstTime} compared to \{secondName}s: \{secondTime} (\{percent}%) (\{times}x)";
+        return STR."\{firstName} was \{description} with an average time: \{firstTime}ns compared to \{secondName}s: \{secondTime}ns (\{percent}%) (\{times}x)";
     }
 }
