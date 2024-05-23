@@ -10,7 +10,7 @@ package com.calebstride.analysis.scenarios.results;
  * @param sizeInBytes    The size of the collection in bytes
  * @param collectionName The name of the collection class
  */
-public record CollectionScenarioResult(TimeResult timeToAdd, TimeResult timeToRemove, TimeResult timeToContains,
+public record CollectionScenarioResult(TimeResult timeToAdd, TimeResult timeToContains, TimeResult timeToRemove,
                                        TimeResult timeToSize, long sizeInBytes, String collectionName) {
 
     /**

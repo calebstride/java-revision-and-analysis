@@ -1,7 +1,6 @@
 package com.calebstride.analysis.scenarios;
 
-import com.calebstride.analysis.collection.content.CollectionFiller;
-import com.calebstride.analysis.collection.content.CollectionGroup;
+import com.calebstride.analysis.collection.content.group.CollectionGroup;
 import com.calebstride.analysis.scenarios.results.CollectionScenarioResult;
 import com.calebstride.analysis.scenarios.results.TimeResult;
 import org.apache.commons.lang3.time.StopWatch;
@@ -30,57 +29,56 @@ public class CollectionTestScenarios {
      *
      * @param newCollectionSupplier A supplier to provide a new instance of the collection
      * @param scenarioConfig        The configuration for the scenario
-     * @param collectionFiller      The class to use to fill the collection
      * @param <T>                   The type the collection contains
      * @return The result from all the scenarios
      */
     public static <T> CollectionScenarioResult runScenarios(Supplier<Collection<T>> newCollectionSupplier,
-            ScenarioConfig scenarioConfig, CollectionFiller<T> collectionFiller) {
+            ScenarioConfig<T> scenarioConfig) {
         // Create the collection as well as the collection for running scenarios with
-        CollectionGroup<Collection<T>, T> collectionGroup = collectionFiller.fillCollection(newCollectionSupplier,
-                scenarioConfig);
+        CollectionGroup<T> collectionGroup = scenarioConfig.collectionFiller()
+                .fillCollection(newCollectionSupplier, scenarioConfig);
         long arraySize = GraphLayout.parseInstance(collectionGroup.collection()).totalSize();
         CollectionScenarioResult result = new CollectionScenarioResult(timeAdd(collectionGroup),
                 timeRemove(collectionGroup), timeContains(collectionGroup), timeSize(collectionGroup), arraySize,
                 newCollectionSupplier.get().getClass().getSimpleName());
-        LOGGER.info(result.summary( "unknown"));
+        LOGGER.info(result.summary(scenarioConfig.collectionFiller().typeName()));
         return result;
     }
 
-    private static <T> TimeResult timeAdd(CollectionGroup<Collection<T>, T> collectionGroup) {
-        return genericAction(collectionGroup, Collection::add);
+    private static <T> TimeResult timeAdd(CollectionGroup<T> collectionGroup) {
+        return genericAction(collectionGroup.collection(), collectionGroup.add(), Collection::add);
     }
 
-    private static <T> TimeResult timeRemove(CollectionGroup<Collection<T>, T> collectionGroup) {
-        return genericAction(collectionGroup, Collection::remove);
+    private static <T> TimeResult timeRemove(CollectionGroup<T> collectionGroup) {
+        return genericAction(collectionGroup.collection(), collectionGroup.remove(), Collection::remove);
     }
 
-    private static <T> TimeResult timeContains(CollectionGroup<Collection<T>, T> collectionGroup) {
-        return genericAction(collectionGroup, Collection::contains);
+    private static <T> TimeResult timeContains(CollectionGroup<T> collectionGroup) {
+        return genericAction(collectionGroup.collection(), collectionGroup.contains(), Collection::contains);
     }
 
-    private static <T> TimeResult timeSize(CollectionGroup<Collection<T>, T> collectionGroup) {
-        return genericAction(collectionGroup, (col, _) -> col.size());
+    private static <T> TimeResult timeSize(CollectionGroup<T> collectionGroup) {
+        return genericAction(collectionGroup.collection(), collectionGroup.add(), (col, _) -> col.size());
     }
 
     /**
      * Run a generic action a number of times. This runs the timing every time is it run
      *
-     * @param collectionGroup The group of the collection for running scenarios and the base collection
-     * @param scenarioAction  The scenario action being done
-     * @param <T>             The type the collection contains
+     * @param collection         The base collection
+     * @param scenarioCollection The collection to use for this scenario
+     * @param scenarioAction     The scenario action being done
+     * @param <T>                The type the collection contains
      * @return The timing result for the scenario
      */
-    private static <T> TimeResult genericAction(CollectionGroup<Collection<T>, T> collectionGroup,
+    private static <T> TimeResult genericAction(Collection<T> collection, Collection<T> scenarioCollection,
             BiConsumer<Collection<T>, T> scenarioAction) {
         StopWatch stopWatch = new StopWatch();
         TimeResult addTimeResult = new TimeResult();
-        Collection<T> scenarioCollection = collectionGroup.scenarioCollection();
         for (T value : scenarioCollection) {
             stopWatch.start();
             // This probably isn't the best way to run different methods and might add some overhead. But it should be
             // a constant overhead so comparisons shouldn't be effected.
-            scenarioAction.accept(collectionGroup.collection(), value);
+            scenarioAction.accept(collection, value);
             stopWatch.stop();
             addTimeResult.updateTime(stopWatch.getTime(TimeUnit.NANOSECONDS));
             stopWatch.reset();

@@ -1,5 +1,6 @@
 package com.calebstride.analysis.collection.content;
 
+import com.calebstride.analysis.collection.content.group.CollectionGroup;
 import com.calebstride.analysis.scenarios.ScenarioConfig;
 
 import java.util.Collection;
@@ -17,9 +18,20 @@ public interface CollectionFiller<U> {
      * @param newCollection A supplier to return a new collection
      * @param scenarioConfig The configuration for the scenarios
      * @return The collection with the new values inserted
-     * @param <T> The group of collections containing the collection and the values to use in scenarios
      */
-    <T extends Collection<U>> CollectionGroup<T, U> fillCollection(Supplier<T> newCollection, ScenarioConfig scenarioConfig);
+    CollectionGroup<U> fillCollection(Supplier<Collection<U>> newCollection, ScenarioConfig<U> scenarioConfig);
 
 
+    /**
+     * Generate a value based off an index
+     *
+     * @param index The index signifying the xth element to be generated
+     * @return The generated value
+     */
+    U generateValue(int index);
+
+    /**
+     * Get a nice name for the type
+     */
+    String typeName();
 }

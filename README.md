@@ -3,6 +3,8 @@ around.
 
 The project uses Maven, so you should be able to run it in all Java IDEs.
 
+This is overengineered for all that it does. I wrote this to try and make it as generic as possible for expansion.  
+
 Some example results:
 ```text
 Integer Collections with 5000 elements running each process 1000 times

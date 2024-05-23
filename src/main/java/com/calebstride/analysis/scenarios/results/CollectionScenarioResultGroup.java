@@ -25,14 +25,13 @@ public class CollectionScenarioResultGroup {
     /**
      * Create a table of results to print to the console
      *
-     * @param tableTitle     The title of the table
      * @param scenarioConfig The config used
      * @return The table string to be printed to the console
      */
-    public String resultTable(String tableTitle, ScenarioConfig scenarioConfig) {
+    public String resultTable(ScenarioConfig<?> scenarioConfig) {
         StringBuilder resultTable = new StringBuilder(STR."""
         \n
-        \{tableTitle} with \{scenarioConfig.collectionSize()} elements running each process \{scenarioConfig.scenarioFreq()} times
+        \{scenarioConfig.collectionFiller().typeName()} Collection with \{scenarioConfig.collectionSize()} elements running each process \{scenarioConfig.scenarioFreq()} times
 
         """);
 
@@ -44,11 +43,11 @@ public class CollectionScenarioResultGroup {
     }
 
     private String createRow(String name, String add, String remove, String contains, String size, String bytes) {
-        return String.format("%10s | %10s | %15s | %15s | %10s | %10s |%n", name, add, remove, contains, size, bytes);
+        return String.format("%15s | %10s | %15s | %15s | %10s | %10s |%n", name, add, remove, contains, size, bytes);
     }
 
     private String createRow(CollectionScenarioResult collectionScenarioResult) {
-        return String.format("%10s | %10s | %15s | %15s | %10s | %10s |%n", collectionScenarioResult.collectionName(),
+        return String.format("%15s | %10s | %15s | %15s | %10s | %10s |%n", collectionScenarioResult.collectionName(),
                 collectionScenarioResult.timeToAdd().getAverageTime(),
                 collectionScenarioResult.timeToRemove().getAverageTime(),
                 collectionScenarioResult.timeToContains().getAverageTime(),
