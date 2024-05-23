@@ -3,6 +3,8 @@ around.
 
 The project uses Maven, so you should be able to run it in all Java IDEs.
 
+To run the scenarios the main method is located in the com.calebstride.analysis.Main class.
+
 This is overengineered for all that it does. I wrote this to try and make it as generic as possible for expansion.  
 
 Some example results:
