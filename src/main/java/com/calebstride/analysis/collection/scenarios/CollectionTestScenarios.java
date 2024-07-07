@@ -73,16 +73,16 @@ public class CollectionTestScenarios {
     private static <T> TimeResult genericAction(Collection<T> collection, Collection<T> scenarioCollection,
             BiConsumer<Collection<T>, T> scenarioAction) {
         StopWatch stopWatch = new StopWatch();
-        TimeResult addTimeResult = new TimeResult();
+        TimeResult timeResult = new TimeResult(TimeUnit.NANOSECONDS);
         for (T value : scenarioCollection) {
             stopWatch.start();
             // This probably isn't the best way to run different methods and might add some overhead. But it should be
             // a constant overhead so comparisons shouldn't be effected.
             scenarioAction.accept(collection, value);
             stopWatch.stop();
-            addTimeResult.updateTime(stopWatch.getTime(TimeUnit.NANOSECONDS));
+            timeResult.updateTime(stopWatch.getTime(TimeUnit.NANOSECONDS));
             stopWatch.reset();
         }
-        return addTimeResult;
+        return timeResult;
     }
 }

@@ -25,3 +25,5 @@ ArrayDeque |        107 |           43148 |           30166 |         96 |      
 ```
 
 # Multithreading
+The com.calebstride.analysis.multithread package contains multithreading examples and different ways to run 
+multiple threads.
