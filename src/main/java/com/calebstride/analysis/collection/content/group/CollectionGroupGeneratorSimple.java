@@ -29,7 +29,7 @@ public class CollectionGroupGeneratorSimple<U> implements CollectionGroupGenerat
      * @return A group where the scenario collection contains values that will be evenly spread throughout the list
      */
     @Override
-    public CollectionGroup<U> generateGroup(Supplier<Collection<U>> newCollection, ScenarioConfig scenarioConfig,
+    public CollectionGroup<U> generateGroup(Supplier<Collection<U>> newCollection, ScenarioConfig<U> scenarioConfig,
             IntFunction<U> generator) {
         int combinedLength = scenarioConfig.collectionSize() + (scenarioConfig.scenarioFreq() * 2);
         int valueGap = combinedLength / scenarioConfig.scenarioFreq();

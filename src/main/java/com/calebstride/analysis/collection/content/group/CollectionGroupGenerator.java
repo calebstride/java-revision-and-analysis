@@ -21,7 +21,7 @@ public interface CollectionGroupGenerator<U> {
      * @param generator The generator that will generate a value for each index
      * @return The generated collectionGroup
      */
-    CollectionGroup<U> generateGroup(Supplier<Collection<U>> newCollection, ScenarioConfig scenarioConfig,
+    CollectionGroup<U> generateGroup(Supplier<Collection<U>> newCollection, ScenarioConfig<U> scenarioConfig,
             IntFunction<U> generator);
 
 }
