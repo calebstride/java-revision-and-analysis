@@ -1,8 +1,8 @@
-package com.calebstride.analysis.scenarios;
+package com.calebstride.analysis.collection.scenarios;
 
 import com.calebstride.analysis.collection.content.group.CollectionGroup;
-import com.calebstride.analysis.scenarios.results.CollectionScenarioResult;
-import com.calebstride.analysis.scenarios.results.TimeResult;
+import com.calebstride.analysis.collection.scenarios.results.CollectionScenarioResult;
+import com.calebstride.analysis.shared.timing.TimeResult;
 import org.apache.commons.lang3.time.StopWatch;
 import org.openjdk.jol.info.GraphLayout;
 import org.slf4j.Logger;

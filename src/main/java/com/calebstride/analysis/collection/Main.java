@@ -1,12 +1,12 @@
-package com.calebstride.analysis;
+package com.calebstride.analysis.collection;
 
 import com.calebstride.analysis.collection.content.CollectionFiller;
 import com.calebstride.analysis.collection.content.ContactCollectionFiller;
-import com.calebstride.analysis.contact.Contact;
-import com.calebstride.analysis.scenarios.CollectionTestScenarios;
-import com.calebstride.analysis.scenarios.ScenarioConfig;
-import com.calebstride.analysis.scenarios.results.CollectionScenarioResult;
-import com.calebstride.analysis.scenarios.results.CollectionScenarioResultGroup;
+import com.calebstride.analysis.collection.contact.Contact;
+import com.calebstride.analysis.collection.scenarios.CollectionTestScenarios;
+import com.calebstride.analysis.collection.scenarios.ScenarioConfig;
+import com.calebstride.analysis.collection.scenarios.results.CollectionScenarioResult;
+import com.calebstride.analysis.collection.scenarios.results.CollectionScenarioResultTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ public class Main {
 
         // Create filler object for contact
         CollectionFiller<Contact> filler = new ContactCollectionFiller();
-        ScenarioConfig<Contact> scenarioConfig = new ScenarioConfig<>(500000, 1000, filler);
+        ScenarioConfig<Contact> scenarioConfig = new ScenarioConfig<>(5000, 1000, filler);
 
         // Compare the timing of two different scenarios
         CollectionScenarioResult integerArrayResult = CollectionTestScenarios.runScenarios(ArrayList::new, scenarioConfig);
@@ -35,7 +35,7 @@ public class Main {
         LOGGER.info(comparison);
 
         // Create a table showing the timing of a few different collections
-        String resultTable = new CollectionScenarioResultGroup()
+        String resultTable = new CollectionScenarioResultTable()
                 .withResult(integerArrayResult)
                 .withResult(CollectionTestScenarios.runScenarios(LinkedList::new, scenarioConfig))
                 .withResult(integerSetResult)
@@ -43,7 +43,7 @@ public class Main {
                 .withResult(CollectionTestScenarios.runScenarios(LinkedHashSet::new, scenarioConfig))
                 .withResult(CollectionTestScenarios.runScenarios(ArrayDeque::new, scenarioConfig))
                 .withResult(CollectionTestScenarios.runScenarios(Stack::new, scenarioConfig))
-                .resultTable(scenarioConfig);
+                .resultTableString(scenarioConfig);
 
         LOGGER.info(resultTable);
 

@@ -1,6 +1,6 @@
 package com.calebstride.analysis.collection.content.group;
 
-import com.calebstride.analysis.scenarios.ScenarioConfig;
+import com.calebstride.analysis.collection.scenarios.ScenarioConfig;
 
 import java.util.Collection;
 import java.util.function.IntFunction;

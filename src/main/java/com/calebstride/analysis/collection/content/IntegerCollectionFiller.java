@@ -2,7 +2,7 @@ package com.calebstride.analysis.collection.content;
 
 import com.calebstride.analysis.collection.content.group.CollectionGroup;
 import com.calebstride.analysis.collection.content.group.CollectionGroupGeneratorSimple;
-import com.calebstride.analysis.scenarios.ScenarioConfig;
+import com.calebstride.analysis.collection.scenarios.ScenarioConfig;
 
 import java.util.Collection;
 import java.util.function.Supplier;

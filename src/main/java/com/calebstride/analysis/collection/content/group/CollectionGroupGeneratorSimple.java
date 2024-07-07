@@ -1,6 +1,6 @@
 package com.calebstride.analysis.collection.content.group;
 
-import com.calebstride.analysis.scenarios.ScenarioConfig;
+import com.calebstride.analysis.collection.scenarios.ScenarioConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

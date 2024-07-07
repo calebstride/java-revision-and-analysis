@@ -1,4 +1,4 @@
-package com.calebstride.analysis.scenarios.results;
+package com.calebstride.analysis.shared.timing;
 
 /**
  * Describes and holds summary of a collection of timings. Allows you to retrieve minimum maximum etc.

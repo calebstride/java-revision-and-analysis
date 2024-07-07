@@ -1,4 +1,6 @@
-package com.calebstride.analysis.scenarios.results;
+package com.calebstride.analysis.collection.scenarios.results;
+
+import com.calebstride.analysis.shared.timing.TimeResult;
 
 /**
  * Record to hold all the scenarios tested for a collection timing. As well as the size of the collection.

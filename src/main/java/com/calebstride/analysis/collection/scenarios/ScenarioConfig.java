@@ -1,4 +1,4 @@
-package com.calebstride.analysis.scenarios;
+package com.calebstride.analysis.collection.scenarios;
 
 import com.calebstride.analysis.collection.content.CollectionFiller;
 

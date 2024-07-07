@@ -1,9 +1,14 @@
-This repo contains a class for running timing and size comparisons for Collections. Feel free to have a play
-around. 
+This repo contains several analysis and revision resources for different Java concepts. Most of these are referenced in
+my blog or just used to practice / learn about Java features I'm not that familiar with.
 
-The project uses Maven, so you should be able to run it in all Java IDEs.
+The project uses Maven, so you should be able to run it in all Java IDEs. It contains multiple main classes to quickly
+run different scenarios.
 
-To run the scenarios the main method is located in the com.calebstride.analysis.Main class.
+# Collections Method Analysis
+The com.calebstride.analysis.collection package contains resources for running timing and size comparisons for different 
+Collections and their methods. Feel free to have a play around.
+
+To run the scenarios the main method is located in the com.calebstride.analysis.collection.Main class.
 
 This is overengineered for all that it does. I wrote this to try and make it as generic as possible for expansion.  
 
@@ -18,3 +23,5 @@ Integer Collections with 5000 elements running each process 1000 times
 LinkedList |        122 |           29454 |           12620 |         93 |        200 |
 ArrayDeque |        107 |           43148 |           30166 |         96 |        105 |
 ```
+
+# Multithreading

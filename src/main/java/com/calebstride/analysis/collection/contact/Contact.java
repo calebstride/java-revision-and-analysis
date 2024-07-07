@@ -1,4 +1,4 @@
-package com.calebstride.analysis.contact;
+package com.calebstride.analysis.collection.contact;
 
 import java.util.Objects;
 import java.util.Random;
