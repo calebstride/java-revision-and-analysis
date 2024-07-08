@@ -56,11 +56,19 @@ public class ExecutorServiceManager {
         }
     }
 
-    public String getResults() {
+    public String getResultsString() {
         return STR."""
         \n
         The time it took to run \{threadConfig.numberOfTasks()} tasks across \{threadConfig.numberOfThreads()} threads:
         \{timeResult.getSummary()}
         """;
+    }
+
+    public ThreadConfig getThreadConfig() {
+        return threadConfig;
+    }
+
+    public TimeResult getTimeResult() {
+        return timeResult;
     }
 }
