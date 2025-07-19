@@ -1,5 +1,5 @@
 This repo contains several analysis and revision resources for different Java concepts. Most of these are referenced in
-my blog or just used to practice / learn about Java features I'm not that familiar with.
+[my blog](https://calebstride.com/blog.html) or just used to practice / learn about Java features I'm not that familiar with.
 
 The project uses Maven, so you should be able to run it in all Java IDEs. It contains multiple main classes to quickly
 run different scenarios.
